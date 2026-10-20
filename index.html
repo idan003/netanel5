@@ -113,12 +113,31 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:5;
   background:var(--green);color:var(--ink);font:700 13px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;padding:12px 18px;border-radius:999px;transition:.25s}
 .toast.show{opacity:1;transform:translate(-50%,0)}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:20;background:var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;transition:opacity .5s,visibility .5s}
+.loader.done{opacity:0;visibility:hidden}
+.loader .avatar{width:120px}
+.loader .avatar::before,.loader .avatar::after{animation-duration:1.2s}
+.loader .avatar img{animation:breathe 1.2s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.04);box-shadow:0 0 0 2px rgba(255,255,255,.08),0 18px 60px -6px rgba(59,91,255,.7)}}
+.lname{font:italic 700 26px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;text-shadow:2px 0 var(--red),-2px 0 var(--blue);animation:gl1 1.2s infinite steps(1)}
+.bar{width:160px;max-width:60vw;height:3px;background:rgba(255,255,255,.1);border-radius:3px;overflow:hidden}
+.bar i{display:block;height:100%;width:40%;background:linear-gradient(90deg,var(--red),var(--blue),var(--green));animation:slide 1s ease-in-out infinite}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(250%)}}
+.lsub{font:700 11px/1 var(--display);letter-spacing:.3em;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
 
 
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="avatar"><img src="logo.webp" alt=""></div>
+  <div class="lname">Natanel</div>
+  <div class="bar"><i></i></div>
+  <div class="lsub">LOADING</div>
+</div>
 <div class="backdrop"><div class="img"></div></div>
 
 <main class="wrap">
@@ -132,7 +151,6 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
 
   <nav class="tabs" role="tablist">
     <button role="tab" id="tab-home" aria-selected="true" data-tab="home">Home</button>
-    <button role="tab" id="tab-codes" aria-selected="false" data-tab="codes">Codes</button>
     <button role="tab" id="tab-supporters" aria-selected="false" data-tab="supporters">Supporters</button>
   </nav>
 
@@ -166,21 +184,6 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
     </div>
   </section>
 
-  <!-- CODES -->
-  <section class="panel" id="codes" role="tabpanel" hidden>
-    <div class="code-card">
-      <div class="code-head"><b>Partner One</b><a class="btn red" href="https://example.com/" target="_blank" rel="noopener">Claim</a></div>
-      <ul class="perks"><li>Free cases</li><li>Deposit bonus</li><li>Monthly leaderboard</li></ul>
-      <div class="code-row"><div class="code">NATANEL</div><button class="btn copy" data-code="NATANEL">Copy</button></div>
-    </div>
-    <div class="code-card">
-      <div class="code-head"><b>Partner Two</b><a class="btn red" href="https://example.com/" target="_blank" rel="noopener">Claim</a></div>
-      <ul class="perks"><li>Welcome reward</li><li>Exclusive drops</li></ul>
-      <div class="code-row"><div class="code">NATANEL</div><button class="btn copy" data-code="NATANEL">Copy</button></div>
-    </div>
-    <p class="note">18+ only. Play responsibly. Partner names and links are placeholders until you add your real deals.</p>
-  </section>
-
   <!-- SUPPORTERS -->
   <section class="panel" id="supporters" role="tabpanel" hidden>
     <div class="board">
@@ -201,24 +204,19 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
 
   <footer>© 2026 NATANEL</footer>
 </main>
-<div class="toast" id="toast">Code copied</div>
 
 <script>
+const loader=document.getElementById('loader');const t0=Date.now();
+function hideLoader(){setTimeout(()=>loader.classList.add('done'),Math.max(0,1400-(Date.now()-t0)))}
+Promise.all([document.fonts?document.fonts.ready:0,new Promise(r=>document.readyState==='complete'?r():addEventListener('load',r))]).then(hideLoader);
+setTimeout(()=>loader.classList.add('done'),5000);
 const tabs=[...document.querySelectorAll('.tabs button')];
 function show(id){
   tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));
-  ['home','codes','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
+  ['home','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
 }
 tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
-const h=location.hash.slice(1); if(['home','codes','supporters'].includes(h)) show(h);
-const toast=document.getElementById('toast');
-document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
-  const done=()=>{toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1400)};
-  navigator.clipboard?.writeText(b.dataset.code).then(done).catch(()=>{
-    const r=document.createRange();r.selectNodeContents(b.previousElementSibling);
-    const s=getSelection();s.removeAllRanges();s.addRange(r);toast.textContent='Code selected';done();
-  });
-}));
+const h=location.hash.slice(1); if(['home','supporters'].includes(h)) show(h);
 </script>
 
 </body>
