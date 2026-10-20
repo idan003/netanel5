@@ -89,6 +89,9 @@ h1 span{display:block;font-size:.34em;letter-spacing:.42em;color:transparent;-we
 .grid .link{flex-direction:column;justify-content:center;gap:8px;padding:14px 6px;text-align:center}
 .grid .txt b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
 @media (max-width:340px){.grid{grid-template-columns:1fr}}
+/* spotify embed */
+.embed{border-radius:14px;overflow:hidden;border:1px solid var(--line);background:var(--panel);line-height:0}
+.embed iframe{width:100%;height:452px;border:0;display:block}
 /* codes */
 .code-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:12px}
 .code-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
@@ -198,6 +201,7 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
       <span class="ico"><svg viewBox="0 0 24 24"><path d="M19 2.5 9 4.6a1 1 0 0 0-.8 1v10a3.3 3.3 0 0 0-1.7-.4C4.6 15.2 3 16.6 3 18.3s1.6 3.2 3.5 3.2 3.5-1.4 3.5-3.2V9.4l8-1.7v6.6a3.3 3.3 0 0 0-1.7-.4c-1.9 0-3.5 1.4-3.5 3.2s1.6 3.2 3.5 3.2 3.5-1.4 3.5-3.2V3.5a1 1 0 0 0-1.2-1z"/></svg></span>
       <span class="txt"><b>Listen on Apple Music</b><small>NetaRush</small></span><span class="arrow">↗</span>
     </a>
+    <div class="embed"><iframe title="NetaRush on Spotify" src="https://open.spotify.com/embed/artist/1R7yRjWX9xA7tRLjjoJtwE?utm_source=generator&amp;theme=0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
   </section>
 
   <!-- SUPPORTERS -->
