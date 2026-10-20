@@ -149,7 +149,8 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
   <h1>Natanel<span>Official</span></h1>
   <p class="tag">Streams, clips and community. Every link in one place.</p>
 
-  <nav class="tabs" role="tablist">
+  <!-- Tabs hidden for now: remove "hidden" to bring back Supporters -->
+  <nav class="tabs" role="tablist" hidden>
     <button role="tab" id="tab-home" aria-selected="true" data-tab="home">Home</button>
     <button role="tab" id="tab-supporters" aria-selected="false" data-tab="supporters">Supporters</button>
   </nav>
@@ -216,7 +217,7 @@ function show(id){
   ['home','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
 }
 tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
-const h=location.hash.slice(1); if(['home','supporters'].includes(h)) show(h);
+
 </script>
 
 </body>
