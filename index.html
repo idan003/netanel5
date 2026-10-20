@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="logo.webp">
+<title>Natanel Links</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,700;1,700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+/* Layout: one centered column over a blurred, glitching city-night backdrop built from the logo itself */
+:root{
+  --ink:#06070d;
+  --panel:rgba(14,16,30,.72);
+  --line:rgba(120,150,255,.22);
+  --fg:#eef1ff;
+  --muted:#9aa3c7;
+  --red:#ff2a3d;
+  --blue:#3b5bff;
+  --green:#3dff7a;
+  --display:"Chakra Petch","Arial Narrow",system-ui,sans-serif;
+  --body:"Barlow",system-ui,-apple-system,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{min-height:100%}
+body{
+  background:var(--ink);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;
+  overflow-x:hidden;
+}
+.backdrop{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+.backdrop .img{position:absolute;inset:-60px;background:url(logo.webp) center/cover;filter:blur(38px) saturate(1.4) brightness(.45);transform:scale(1.15)}
+.backdrop::after{content:"";position:absolute;inset:0;
+  background:
+    repeating-linear-gradient(0deg,rgba(0,0,0,.28) 0 1px,transparent 1px 3px),
+    radial-gradient(ellipse at 50% 0%,transparent 0,rgba(6,7,13,.6) 55%,var(--ink) 100%);}
+.wrap{
+  position:relative;z-index:1;max-width:520px;margin:0 auto;
+  padding-block:40px 32px;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  display:flex;flex-direction:column;align-items:center;gap:22px;
+}
+/* avatar */
+.avatar{position:relative;width:148px;aspect-ratio:1;max-width:100%}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:22px;display:block;position:relative;z-index:2;
+  box-shadow:0 0 0 2px rgba(255,255,255,.08),0 18px 50px -10px rgba(255,42,61,.55)}
+.avatar::before,.avatar::after{content:"";position:absolute;inset:0;border-radius:22px;z-index:1;background:url(logo.webp) center/cover;opacity:.75;mix-blend-mode:screen}
+.avatar::before{filter:hue-rotate(-40deg) saturate(3);animation:gl1 3.6s infinite steps(1)}
+.avatar::after{filter:hue-rotate(160deg) saturate(3);animation:gl2 3.6s infinite steps(1)}
+@keyframes gl1{0%,88%,100%{transform:translate(0,0)}90%{transform:translate(-6px,2px)}93%{transform:translate(4px,-3px)}96%{transform:translate(-3px,0)}}
+@keyframes gl2{0%,88%,100%{transform:translate(0,0)}90%{transform:translate(6px,-2px)}93%{transform:translate(-4px,3px)}96%{transform:translate(3px,1px)}}
+.live{position:absolute;z-index:3;bottom:-10px;left:50%;transform:translateX(-50%);
+  font:700 11px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;
+  background:var(--ink);border:1px solid var(--green);color:var(--green);padding:6px 10px;border-radius:999px;white-space:nowrap;display:flex;align-items:center;gap:6px}
+.live i{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 1.4s infinite}
+@keyframes pulse{50%{opacity:.25}}
+/* name */
+h1{margin:6px 0 0;font:italic 700 clamp(44px,13vw,68px)/.9 var(--display);letter-spacing:.02em;text-transform:uppercase;text-align:center;position:relative;
+  color:var(--fg);text-shadow:3px 0 var(--red),-3px 0 var(--blue)}
+h1 span{display:block;font-size:.34em;letter-spacing:.42em;color:transparent;-webkit-text-stroke:1px rgba(238,241,255,.7);text-shadow:none;margin-top:8px;font-style:normal}
+.tag{margin:-6px 0 0;color:var(--muted);text-align:center;font-size:15px;max-width:34ch}
+/* tabs */
+.tabs{display:flex;gap:4px;padding:4px;background:var(--panel);border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(10px);width:100%}
+.tabs button{flex:1;min-width:0;appearance:none;border:0;background:transparent;color:var(--muted);cursor:pointer;
+  font:700 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;padding:12px 6px;border-radius:9px;transition:background .2s,color .2s}
+.tabs button[aria-selected="true"]{background:linear-gradient(100deg,var(--red),#c4142b);color:#fff;box-shadow:0 6px 20px -6px var(--red)}
+.tabs button:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.panel{width:100%;display:flex;flex-direction:column;gap:12px}
+/* links */
+.link{display:flex;align-items:center;gap:14px;text-decoration:none;color:var(--fg);
+  background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;backdrop-filter:blur(10px);
+  position:relative;overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s}
+.link::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.08) 50%,transparent 70%);transform:translateX(-100%);transition:transform .6s}
+.link:hover,.link:focus-visible{transform:translateY(-2px);border-color:var(--c,var(--blue));box-shadow:0 10px 30px -12px var(--c,var(--blue));outline:none}
+.link:hover::after{transform:translateX(100%)}
+.ico{flex:none;width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:var(--c,var(--blue));color:#fff}
+.ico svg{width:22px;height:22px;fill:currentColor}
+.txt{min-width:0;flex:1;display:flex;flex-direction:column}
+.txt b{font:700 16px/1.2 var(--display);letter-spacing:.04em}
+.txt small{color:var(--muted);font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.arrow{flex:none;color:var(--muted);font:700 18px var(--display)}
+.link.feature{padding:18px 16px;border-color:color-mix(in srgb,var(--c) 60%,transparent)}
+.link.feature .txt b{font-size:19px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.grid .link{flex-direction:column;justify-content:center;gap:8px;padding:14px 6px;text-align:center}
+.grid .txt b{font-size:12px;letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:380px){.grid{grid-template-columns:repeat(2,1fr)}}
+/* codes */
+.code-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;backdrop-filter:blur(10px);display:flex;flex-direction:column;gap:12px}
+.code-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.code-head b{font:700 20px/1 var(--display);letter-spacing:.04em}
+.perks{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.perks li{font-size:12px;font-weight:600;color:var(--green);border:1px solid rgba(61,255,122,.35);border-radius:999px;padding:4px 10px}
+.code-row{display:flex;gap:8px;flex-wrap:wrap}
+.code{flex:1;min-width:140px;font:700 18px/1 var(--display);letter-spacing:.2em;padding:14px;border:1px dashed var(--muted);border-radius:10px;text-align:center;user-select:all}
+.btn{appearance:none;border:0;cursor:pointer;font:700 12px/1 var(--display);letter-spacing:.14em;text-transform:uppercase;padding:14px 16px;border-radius:10px;background:var(--fg);color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.btn.red{background:var(--red);color:#fff}
+.btn:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+/* supporters */
+.board{background:var(--panel);border:1px solid var(--line);border-radius:14px;backdrop-filter:blur(10px);overflow:hidden}
+.board h3{margin:0;padding:14px 16px;font:700 13px/1 var(--display);letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}
+.board h3 em{font-style:normal;color:var(--muted)}
+.row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:11px 16px;font-variant-numeric:tabular-nums}
+.row+.row{border-top:1px solid rgba(120,150,255,.1)}
+.rank{font:700 14px var(--display);color:var(--muted)}
+.row:nth-child(2) .rank{color:#ffd24a}.row:nth-child(3) .rank{color:#d8dbe6}.row:nth-child(4) .rank{color:#e39a5b}
+.who{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.amt{font:700 14px var(--display);color:var(--green)}
+.note{font-size:12px;color:var(--muted);text-align:center;margin:0}
+footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;margin-top:6px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);opacity:0;z-index:5;
+  background:var(--green);color:var(--ink);font:700 13px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;padding:12px 18px;border-radius:999px;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+
+<div class="backdrop"><div class="img"></div></div>
+
+<main class="wrap">
+  <div class="avatar">
+    <img src="logo.webp" alt="Natanel">
+    <div class="live"><i></i>Live on Kick</div>
+  </div>
+
+  <h1>Natanel<span>Official</span></h1>
+  <p class="tag">Streams, clips and community. Every link in one place.</p>
+
+  <nav class="tabs" role="tablist">
+    <button role="tab" id="tab-home" aria-selected="true" data-tab="home">Home</button>
+    <button role="tab" id="tab-codes" aria-selected="false" data-tab="codes">Codes</button>
+    <button role="tab" id="tab-supporters" aria-selected="false" data-tab="supporters">Supporters</button>
+  </nav>
+
+  <!-- HOME -->
+  <section class="panel" id="home" role="tabpanel">
+    <a class="link feature" style="--c:#53fc18" href="https://kick.com/natanel" target="_blank" rel="noopener">
+      <span class="ico" style="color:#06070d"><svg viewBox="0 0 24 24"><path d="M3 2h6v6h2V6h2V4h2V2h6v6h-2v2h-2v4h2v2h2v6h-6v-2h-2v-2h-2v-2H9v6H3z"/></svg></span>
+      <span class="txt"><b>Watch on Kick</b><small>kick.com/natanel</small></span><span class="arrow">↗</span>
+    </a>
+    <a class="link" style="--c:#5865f2" href="https://discord.gg/" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M19.6 5.3A17 17 0 0 0 15.4 4l-.5 1a15.6 15.6 0 0 0-5.8 0L8.6 4a17 17 0 0 0-4.2 1.3C1.7 9.3 1 13.2 1.3 17a17 17 0 0 0 5.2 2.6l1.1-1.8a11 11 0 0 1-1.7-.8l.4-.3a12 12 0 0 0 11.4 0l.4.3-1.7.8 1.1 1.8a17 17 0 0 0 5.2-2.6c.4-4.5-.7-8.4-3.1-11.7zM8.5 14.7c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1zm7 0c-1 0-1.9-1-1.9-2.1s.8-2.1 1.9-2.1 1.9 1 1.9 2.1-.8 2.1-1.9 2.1z"/></svg></span>
+      <span class="txt"><b>Join the Discord</b><small>Community, giveaways, stream alerts</small></span><span class="arrow">↗</span>
+    </a>
+    <a class="link" style="--c:#ff2a3d" href="https://streamelements.com/" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.6 4.5c2.1 0 3.6 1.2 4.4 2.5.8-1.3 2.3-2.5 4.4-2.5 3.6 0 5.7 3.9 4.2 7.3C19.5 16.4 12 21 12 21z"/></svg></span>
+      <span class="txt"><b>Support the Stream</b><small>Tip via StreamElements</small></span><span class="arrow">↗</span>
+    </a>
+    <div class="grid">
+      <a class="link" style="--c:#ff0033" href="https://www.youtube.com/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12 31 31 0 0 0 1 16.8a3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15V9l5.8 3z"/></svg></span>
+        <span class="txt"><b>YouTube</b></span>
+      </a>
+      <a class="link" style="--c:#d62976" href="https://www.instagram.com/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2c-2.7 0-3 0-4.1.1C4.3 2.2 2.2 4.3 2.1 7.9 2 9 2 9.3 2 12s0 3 .1 4.1c.1 3.6 2.2 5.7 5.8 5.8 1.1.1 1.4.1 4.1.1s3 0 4.1-.1c3.6-.1 5.7-2.2 5.8-5.8.1-1.1.1-1.4.1-4.1s0-3-.1-4.1c-.1-3.6-2.2-5.7-5.8-5.8C15 2 14.7 2 12 2z"/></svg></span>
+        <span class="txt"><b>Instagram</b></span>
+      </a>
+      <a class="link" style="--c:#25f4ee" href="https://www.tiktok.com/" target="_blank" rel="noopener">
+        <span class="ico" style="color:#06070d"><svg viewBox="0 0 24 24"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2-2.8V9.2a6.3 6.3 0 1 0 5.3 6.2V8.6a7.7 7.7 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></span>
+        <span class="txt"><b>TikTok</b></span>
+      </a>
+      <a class="link" style="--c:#3b5bff" href="https://x.com/" target="_blank" rel="noopener">
+        <span class="ico"><svg viewBox="0 0 24 24"><path d="M17.8 2.5h3.3l-7.2 8.2 8.5 10.8h-6.6l-5.2-6.8-6 6.8H1.3l7.7-8.8L.9 2.5h6.8l4.7 6.2zm-1.2 17.1h1.8L6.6 4.3H4.6z"/></svg></span>
+        <span class="txt"><b>X</b></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- CODES -->
+  <section class="panel" id="codes" role="tabpanel" hidden>
+    <div class="code-card">
+      <div class="code-head"><b>Partner One</b><a class="btn red" href="https://example.com/" target="_blank" rel="noopener">Claim</a></div>
+      <ul class="perks"><li>Free cases</li><li>Deposit bonus</li><li>Monthly leaderboard</li></ul>
+      <div class="code-row"><div class="code">NATANEL</div><button class="btn copy" data-code="NATANEL">Copy</button></div>
+    </div>
+    <div class="code-card">
+      <div class="code-head"><b>Partner Two</b><a class="btn red" href="https://example.com/" target="_blank" rel="noopener">Claim</a></div>
+      <ul class="perks"><li>Welcome reward</li><li>Exclusive drops</li></ul>
+      <div class="code-row"><div class="code">NATANEL</div><button class="btn copy" data-code="NATANEL">Copy</button></div>
+    </div>
+    <p class="note">18+ only. Play responsibly. Partner names and links are placeholders until you add your real deals.</p>
+  </section>
+
+  <!-- SUPPORTERS -->
+  <section class="panel" id="supporters" role="tabpanel" hidden>
+    <div class="board">
+      <h3>Top Subs <em>All time · example</em></h3>
+      <div class="row"><span class="rank">#1</span><span class="who">ShadowByte</span><span class="amt">142</span></div>
+      <div class="row"><span class="rank">#2</span><span class="who">NeonRaider</span><span class="amt">97</span></div>
+      <div class="row"><span class="rank">#3</span><span class="who">kobi_77</span><span class="amt">64</span></div>
+      <div class="row"><span class="rank">#4</span><span class="who">GreenEyeGang</span><span class="amt">41</span></div>
+    </div>
+    <div class="board">
+      <h3>Top Kicks <em>This week · example</em></h3>
+      <div class="row"><span class="rank">#1</span><span class="who">MaorTV</span><span class="amt">12,400</span></div>
+      <div class="row"><span class="rank">#2</span><span class="who">RedLine</span><span class="amt">8,150</span></div>
+      <div class="row"><span class="rank">#3</span><span class="who">yoni.exe</span><span class="amt">5,020</span></div>
+      <div class="row"><span class="rank">#4</span><span class="who">CityNights</span><span class="amt">2,780</span></div>
+    </div>
+  </section>
+
+  <footer>© 2026 NATANEL</footer>
+</main>
+<div class="toast" id="toast">Code copied</div>
+
+<script>
+const tabs=[...document.querySelectorAll('.tabs button')];
+function show(id){
+  tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));
+  ['home','codes','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
+}
+tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
+const h=location.hash.slice(1); if(['home','codes','supporters'].includes(h)) show(h);
+const toast=document.getElementById('toast');
+document.querySelectorAll('.copy').forEach(b=>b.addEventListener('click',()=>{
+  const done=()=>{toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),1400)};
+  navigator.clipboard?.writeText(b.dataset.code).then(done).catch(()=>{
+    const r=document.createRange();r.selectNodeContents(b.previousElementSibling);
+    const s=getSelection();s.removeAllRanges();s.addRange(r);toast.textContent='Code selected';done();
+  });
+}));
+</script>
+
+</body>
+</html>
