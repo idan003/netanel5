@@ -151,10 +151,11 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
   <h1>Natanel<span>Official</span></h1>
   <p class="tag">Streams, clips and community. Every link in one place.</p>
 
-  <!-- Tabs hidden for now: remove "hidden" to bring back Supporters -->
-  <nav class="tabs" role="tablist" hidden>
+  <nav class="tabs" role="tablist">
     <button role="tab" id="tab-home" aria-selected="true" data-tab="home">Home</button>
-    <button role="tab" id="tab-supporters" aria-selected="false" data-tab="supporters">Supporters</button>
+    <button role="tab" id="tab-music" aria-selected="false" data-tab="music">Music</button>
+    <!-- Supporters hidden for now: remove "hidden" to bring it back -->
+    <button role="tab" id="tab-supporters" aria-selected="false" data-tab="supporters" hidden>Supporters</button>
   </nav>
 
   <!-- HOME -->
@@ -187,6 +188,18 @@ footer{color:var(--muted);font-size:12px;text-align:center;letter-spacing:.06em;
     </div>
   </section>
 
+  <!-- MUSIC -->
+  <section class="panel" id="music" role="tabpanel" hidden>
+    <a class="link feature" style="--c:#1db954" href="https://open.spotify.com/artist/1R7yRjWX9xA7tRLjjoJtwE" target="_blank" rel="noopener">
+      <span class="ico" style="color:#06070d"><svg viewBox="0 0 24 24"><path d="M12 1.5a10.5 10.5 0 1 0 0 21 10.5 10.5 0 0 0 0-21zm4.8 15.1a.7.7 0 0 1-.9.2c-2.5-1.5-5.6-1.8-9.3-1a.7.7 0 1 1-.3-1.3c4-.9 7.5-.5 10.3 1.2.3.2.4.6.2.9zm1.3-2.9a.8.8 0 0 1-1.1.3c-2.8-1.7-7.2-2.2-10.5-1.2a.8.8 0 1 1-.5-1.6c3.8-1.1 8.6-.6 11.8 1.4.4.2.5.7.3 1.1zm.1-3c-3.4-2-9-2.2-12.2-1.2a1 1 0 1 1-.6-1.9c3.7-1.1 9.9-.9 13.8 1.4a1 1 0 0 1-1 1.7z"/></svg></span>
+      <span class="txt"><b>Listen on Spotify</b><small>NetaRush</small></span><span class="arrow">↗</span>
+    </a>
+    <a class="link feature" style="--c:#fa2d48" href="https://music.apple.com/us/artist/netarush/1872509350" target="_blank" rel="noopener">
+      <span class="ico"><svg viewBox="0 0 24 24"><path d="M19 2.5 9 4.6a1 1 0 0 0-.8 1v10a3.3 3.3 0 0 0-1.7-.4C4.6 15.2 3 16.6 3 18.3s1.6 3.2 3.5 3.2 3.5-1.4 3.5-3.2V9.4l8-1.7v6.6a3.3 3.3 0 0 0-1.7-.4c-1.9 0-3.5 1.4-3.5 3.2s1.6 3.2 3.5 3.2 3.5-1.4 3.5-3.2V3.5a1 1 0 0 0-1.2-1z"/></svg></span>
+      <span class="txt"><b>Listen on Apple Music</b><small>NetaRush</small></span><span class="arrow">↗</span>
+    </a>
+  </section>
+
   <!-- SUPPORTERS -->
   <section class="panel" id="supporters" role="tabpanel" hidden>
     <div class="board">
@@ -216,9 +229,10 @@ setTimeout(()=>loader.classList.add('done'),5000);
 const tabs=[...document.querySelectorAll('.tabs button')];
 function show(id){
   tabs.forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===id));
-  ['home','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
+  ['home','music','supporters'].forEach(p=>document.getElementById(p).hidden=p!==id);
 }
 tabs.forEach(b=>b.addEventListener('click',()=>show(b.dataset.tab)));
+const h=location.hash.slice(1); if(['home','music'].includes(h)) show(h);
 
 </script>
 
